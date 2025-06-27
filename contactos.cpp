@@ -16,9 +16,9 @@ struct contactoEmail{
 void leerCorreo(correo &, string, string);
 void leerContacto(contactoEmail &, string, char, int, correo);
 void imprimeContacto(contactoEmail &);
-
+void contactos2(contactoEmail &);
 int main(){
-    int n, op,New;
+    int n, op,New,Mo;
     string nom, user, domain;
     char sex;
     int edad;
@@ -29,8 +29,9 @@ int main(){
         system("cls");
         cout<<"Menu de opciones -------------------------"<<endl;
         cout<<"1. Agregar contacto"<<endl;
-        cout<<"2. Mostrar contactos"<<endl;
-        cout<<"3. Reescribir contacto"<<endl;  
+        cout<<"2. Reescribir contacto"<<endl;
+        cout<<"3. Mostrar lista de contactos"<<endl;  
+        cout<<"5. Eliminar un contacto"<<endl; 
         cout<<"0. Salir"<<endl;
         cout<<"Elige una opcion: "; cin>>op;
         switch(op){
@@ -53,14 +54,6 @@ int main(){
                 system("pause");
                 break;
             case 2:
-                for(int i = 0; i < n; i++){
-                    cout<<"Contacto #"<<i<<endl;
-                    imprimeContacto(lista[i]);
-                    cout<<endl;
-                }
-                system("pause");
-                break;
-            case 3:
                 cout<<"Ingrese el Numero que decea Modificar: ";
                 cin>>New;
                 cout<<"Ingrese el Nuevo nombre del contacto: "; 
@@ -74,17 +67,44 @@ int main(){
                 cout<<endl;
                 system("pause");
                 break;
+            case 3:
+                for(int i = 0; i < n; i++){
+                    cout<<"Contacto #"<<i+1<<endl;
+                    imprimeContacto(lista[i]);
+                    cout<<endl;
+                }
+                system("pause");
+                break;
+            case 5: 
+            int Pos; 
+                cout<<"¿Que contacto decea eliminar?"<<endl; 
+                for(int i = 0; i < n; i++){
+                    cout<<"Contacto #"<<i+1<<"   ";
+                    contactos2(lista[i]);
+                    cout<<endl;
+                }
+                cout<<"Ingrese el contacto que decea eliminar: ";
+                cin>>Pos; 
+                for(int i = Pos - 1; i < n - 1; i++){
+                    lista[i] = lista[i+1];
+                }
+                n--; 
+        
+                system("pause");
+
+                break;
             case 0:
                 char Mo;  
                 cout<<"Esta seguro de salir? (S/N): "<<endl; 
                 cout<<"S. Seguir"<<endl; 
                 cout<<"N. Salir"<<endl; 
-                cout<<"Elige un opcion";
+                cout<<"Elige un opcion: ";
                 cin>>Mo;
                 switch(Mo){
                     case 'S':
                     cout<<"Sigamos"<<endl; 
                     system("pause");
+                    op=-1;
                     break;
 
                     case 'N':
@@ -95,9 +115,10 @@ int main(){
             default:
                 cout<<"Opcion no valida!"<<endl;
                 system("pause");
+                op=-1;
                 break;
         }
-    } while(op != 0);
+    } while(op!=0);
     return 0;
 }
 
@@ -113,9 +134,15 @@ void leerCorreo(correo &c, string u, string d){
     c.domain = d;
 }
 
-void imprimeContacto(contactoEmail &c){
+void imprimeContacto(contactoEmail & c){
     cout<<"Nombre: "<<c.nom<<endl;
     cout<<"Sexo: "<<c.sex<<endl;
     cout<<"Edad: "<<c.edad<<endl;
     cout<<"Email: "<<c.email.user<<"@"<<c.email.domain<<endl;
+}
+void contactos2(contactoEmail & m){
+    cout<<"Nombre: "<<m.nom<<"      ";
+    cout<<"Sexo: "<<m.sex<<"      ";
+    cout<<"Edad: "<<m.edad<<"      ";
+    cout<<"Email: "<<m.email.user<<"@"<<m.email.domain<<endl;
 }
